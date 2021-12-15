@@ -39,7 +39,7 @@ def page_second():
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    audio_backend = f'http://0.0.0.0/economy/{x}/text-to-speech'
+    audio_backend = f'http://localhost:8000/economy/{x}/text-to-speech'
     audio = process_tts(audio_backend)
     if audio:
         st.audio(f'https://storage.googleapis.com/audio-output/economy_{int_val}.mp3', format='audio/ogg')
@@ -69,7 +69,7 @@ def page_third():
 
     if nlp_option=="Sentiment":
         st.write("# Sentiment")
-        backend = f'http://0.0.0.0/economy/{x}/sentiment'
+        backend = f'http://localhost:8000/economy/{x}/sentiment'
         sentiment = process_sentiment(backend)
         st.write(sentiment)
 
