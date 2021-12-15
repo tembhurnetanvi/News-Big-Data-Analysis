@@ -11,7 +11,8 @@ from gtts import gTTS
 from google.cloud import storage
 import os
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="" 
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="mnt/c/DAGS/Project/Github/News-Big-Data-Analysis/fastapi/app/peak-text-334821-498618653290.json" 
 
 
 def parse_dataframe(df):
