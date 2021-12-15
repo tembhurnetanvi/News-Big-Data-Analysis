@@ -8,12 +8,10 @@ import pandas as pd
 import json
 from sentiment import process_sentiment
 from gtts import gTTS
-import gcsfs
 from google.cloud import storage
 import os
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="" 
-
 
 
 def parse_dataframe(df):
@@ -69,16 +67,6 @@ def politics_tts(row_id: int):
     blob.make_public()
     os.remove(f'./politics_{row_id}.mp3')
     return {"Save": "Successful"}
-    # except:
-    #     return {"Save": "Failure"}
-# @app.post("/politics/{row_id}/summary")
-# def politics_ner(row_id: int):
-#     df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/politics.csv', index_col=0)
-#     new_df = df.filter(items = [row_id], axis=0)
-#     parsed_row = parse_dataframe(new_df)
-#     body = parsed_row[0]['body']
-#     summary = summarize(body)
-#     return {"TF summary": summary}
 
 # WORLD
 @app.get("/world/{row_id}")
@@ -135,7 +123,7 @@ def economy_sentiment(row_id: int):
 
 
 @app.post("/economy/{row_id}/text-to-speech")
-def economy_sentiment(row_id: int):
+def economy_tts(row_id: int):
     df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
@@ -173,7 +161,7 @@ def health_sentiment(row_id: int):
 
 
 @app.post("/health/{row_id}/text-to-speech")
-def health_sentiment(row_id: int):
+def health_tts(row_id: int):
     df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/health.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
@@ -210,7 +198,7 @@ def tech_sentiment(row_id: int):
 
 
 @app.post("/tech/{row_id}/text-to-speech")
-def tech_sentiment(row_id: int):
+def tech_tts(row_id: int):
     df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/tech.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
@@ -246,7 +234,7 @@ def us_sentiment(row_id: int):
 
 
 @app.post("/us/{row_id}/text-to-speech")
-def us_sentiment(row_id: int):
+def us_tts(row_id: int):
     df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/us.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
@@ -284,7 +272,7 @@ def opinion_sentiment(row_id: int):
 
 
 @app.post("/opinion/{row_id}/text-to-speech")
-def opinion_sentiment(row_id: int):
+def opinion_tts(row_id: int):
     df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/opinion.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
