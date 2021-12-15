@@ -39,7 +39,7 @@ def page_second():
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    st.audio('https://storage.googleapis.com/audio-output/politics_5.mp3', format='audio/ogg')
+    st.audio(f'https://storage.googleapis.com/audio-output/economy_{int_val}.mp3', format='audio/ogg')
     author = st.write("By "+data["author"][int_val])
     datetime = st.write(data["datetime"][int_val])
     body = st.write(data["body"][int_val])
@@ -53,9 +53,9 @@ def page_third():
     DATA_URL="https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv"
     data = st.cache(pd.read_csv)(DATA_URL)
     nlp_option = st.radio("Services", st.session_state["options"], key="radio")
-  
+    
     if nlp_option=="NER":
-        st.write(" # NER")
+        st.write("# NER")
         doc=nlp(data["body"][x])
         spacy_streamlit.visualize_ner(doc,labels=nlp.get_pipe('ner').labels, show_table=False)
         
@@ -63,6 +63,31 @@ def page_third():
         st.write("# Text Tokenization")
         doc=nlp(data["body"][x])
         spacy_streamlit.visualize_tokens(doc, attrs=["text", "pos_", "dep_", "ent_type_"])
+
+    if nlp_option=="Sentiment":
+        st.write("# Sentiment")
+        backend = f'http://0.0.0.0/economy/{x}/sentiment'
+        sentiment = process_sentiment(backend)
+        st.write(sentiment)
+
+
+
+@st.cache
+def process_sentiment(server_url: str):
+    headers = CaseInsensitiveDict()
+    headers["accept"] = "application/json"
+    # headers["Content-Type"] = "application/json"
+    # valid_text = {
+    #         'text': input_text
+    #     }
+    # data = '{"text":'+input_text+'}'
+    # data = '{"text":"'+text+'"}'
+    data = ''
+    resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
+    result = resp.json()
+    result_dict = result['sentiment']
+    valid_result = result_dict["Sentiment"]
+    return valid_result
 
         
 if __name__ == "__main__":
