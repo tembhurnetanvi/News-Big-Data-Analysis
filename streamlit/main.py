@@ -15,25 +15,25 @@ st.markdown("""
         <a class="nav-link disabled" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://nlpservices-streamlit-v1-th4rn5qo6a-uc.a.run.app/" target="_blank">US</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_us.py" target="_blank">US</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">World</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_wor.py" target="_blank">World</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Politics</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_pol.py" target="_blank">Politics</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Opinion</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_opi.py" target="_blank">Opinion</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Health</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_hea.py" target="_blank">Health</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Economy</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_eco.py" target="_blank">Economy</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Tech</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_tec.py" target="_blank">Tech</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Dev_LogIn</a>
