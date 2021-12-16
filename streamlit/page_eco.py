@@ -120,12 +120,6 @@ def process_tts(server_url: str):
 def process_summarization(server_url: str):
     headers = CaseInsensitiveDict()
     headers["accept"] = "application/json"
-    # headers["Content-Type"] = "application/json"
-    # valid_text = {
-    #         'text': input_text
-    #     }
-    # data = '{"text":'+input_text+'}'
-    # data = '{"text":"'+text+'"}'
     data = ''
     resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
     result = resp.json()

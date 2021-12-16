@@ -11,7 +11,7 @@ from gtts import gTTS
 import os
 from transformers import pipeline
 
-summarizer1 = pipeline("summarization",)
+summarizer1 = pipeline("summarization", model="t5-base", tokenizer="t5-base")
 
 summarizer2 = pipeline("summarization")
 
