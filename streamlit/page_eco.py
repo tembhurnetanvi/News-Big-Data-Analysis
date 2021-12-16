@@ -71,13 +71,13 @@ def page_third():
 
     if nlp_option=="Sentiment":
         st.write("# Sentiment")
-        backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{}/sentiment'
+        backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{x}/sentiment'
         sentiment = process_sentiment(backend)
         st.write(sentiment)
-        
+
     if nlp_option=="Summarization":
         st.write("# Summarization")
-        backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{}/summarizer'
+        backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{x}/summarizer'
         summarize = process_summarization(backend)
 
 
