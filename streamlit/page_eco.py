@@ -1,3 +1,4 @@
+from transformers.utils.logging import reset_format
 import streamlit as st
 import pandas as pd
 import spacy_streamlit
@@ -73,7 +74,8 @@ def page_third():
         st.write("# Sentiment")
         backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{x}/sentiment'
         sentiment = process_sentiment(backend)
-        st.write(sentiment)
+        st.write(sentiment ["Sentiment"])
+        st.write(sentiment["Subjectivity"])
 
     if nlp_option=="Summarization":
         st.write("# Summarization")
@@ -98,8 +100,9 @@ def process_sentiment(server_url: str):
     resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
     result = resp.json()
     result_dict = result['sentiment']
-    valid_result = result_dict["Sentiment"]
-    return valid_result
+    valid_sentiment = result_dict["Sentiment"]
+    valid_subjectivity = result_dict["dataframe"]["value"]["1"]
+    return {"Sentiment":valid_sentiment, "Subjectivity":valid_subjectivity}
 
 @st.cache
 def process_tts(server_url: str):
@@ -124,10 +127,8 @@ def process_summarization(server_url: str):
     data = ''
     resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
     result = resp.json()
-    print(result)
-    print(type(result))
-    # summ = result["summary_text"]
-    return resp.content
+    summ = result["summary"][0]["summary_text"]
+    return summ
         
 if __name__ == "__main__":
     main()
