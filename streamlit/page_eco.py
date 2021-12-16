@@ -129,8 +129,10 @@ def process_summarization(server_url: str):
     data = ''
     resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
     result = resp.json()
-    summ = result["summary_text"]
-    return summ
+    print(result)
+    print(type(result))
+    # summ = result["summary_text"]
+    return resp.content
         
 if __name__ == "__main__":
     main()
