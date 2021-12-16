@@ -36,7 +36,7 @@ st.markdown("""
         <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/tanvi/streamlit/page_tec.py" target="_blank">Tech</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="https://twitter.com/thedataprof" target="_blank">Dev_LogIn</a>
+        <a class="nav-link" href="https://share.streamlit.io/tembhurnetanvi/news-big-data-analysis/main/streamlit/page_dev_login.py" target="_blank">Dev_LogIn</a>
       </li>
     </ul>
   </div>
