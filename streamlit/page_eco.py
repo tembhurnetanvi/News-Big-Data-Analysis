@@ -3,6 +3,8 @@ import pandas as pd
 import spacy_streamlit
 import spacy
 from spacy import displacy
+import requests
+from requests.structures import CaseInsensitiveDict
 
 nlp = spacy.load('en_core_web_sm')
 
@@ -69,9 +71,15 @@ def page_third():
 
     if nlp_option=="Sentiment":
         st.write("# Sentiment")
-        backend = f'http://localhost:8000/economy/{x}/sentiment'
+        backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{}/sentiment'
         sentiment = process_sentiment(backend)
         st.write(sentiment)
+        
+    if nlp_option=="Summarization":
+        st.write("# Summarization")
+        backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{}/summarizer'
+        summarize = process_summarization(backend)
+
 
 
 
@@ -108,6 +116,21 @@ def process_tts(server_url: str):
     valid_result = result['Save']
     return True if valid_result=="Successful" else False
 
+@st.cache
+def process_summarization(server_url: str):
+    headers = CaseInsensitiveDict()
+    headers["accept"] = "application/json"
+    # headers["Content-Type"] = "application/json"
+    # valid_text = {
+    #         'text': input_text
+    #     }
+    # data = '{"text":'+input_text+'}'
+    # data = '{"text":"'+text+'"}'
+    data = ''
+    resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
+    result = resp.json()
+    summ = result["summary_text"]
+    return summ
         
 if __name__ == "__main__":
     main()
