@@ -8,10 +8,14 @@ import pandas as pd
 import json
 from sentiment import process_sentiment
 from gtts import gTTS
-from google.cloud import storage
 import os
+from transformers import pipeline
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="" 
+summarizer1 = pipeline("summarization",)
+
+summarizer2 = pipeline("summarization")
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/mnt/c/DAGS/Project/Github/News-Big-Data-Analysis/fastapi/app/peak-text-334821-498618653290.json" 
 
 
 def parse_dataframe(df):
@@ -68,6 +72,19 @@ def politics_tts(row_id: int):
     os.remove(f'./politics_{row_id}.mp3')
     return {"Save": "Successful"}
 
+@app.post("/politics/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/politics.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
 # WORLD
 @app.get("/world/{row_id}")
 def read_world(row_id: int):
@@ -102,6 +119,22 @@ def world_tts(row_id: int):
     blob.make_public()
     os.remove(f'./world_{row_id}.mp3')
     return {"Save": "Successful"}
+
+@app.post("/world/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/world.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
+
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
+
 
 # ECONOMY
 @app.get("/economy/{row_id}")
@@ -139,6 +172,20 @@ def economy_tts(row_id: int):
     os.remove(f'./economy_{row_id}.mp3')
     return {"Save": "Successful"}
 
+@app.post("/economy/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
+
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
 
 
 # HEALTH
@@ -177,6 +224,20 @@ def health_tts(row_id: int):
     os.remove(f'./health_{row_id}.mp3')
     return {"Save": "Successful"}
 
+@app.post("/health/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/health.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
+
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
 
 # TECH
 @app.get("/tech/{row_id}")
@@ -209,10 +270,25 @@ def tech_tts(row_id: int):
     buckets = list(storage_client.list_buckets())
     bucket = storage_client.get_bucket("audio-output")
     blob = bucket.blob(f'tech/{row_id}.mp3')
-    blob.upload_from_filename(f'./health_{row_id}.mp3')
+    blob.upload_from_filename(f'./tech_{row_id}.mp3')
     blob.make_public()
     os.remove(f'./tech_{row_id}.mp3')
     return {"Save": "Successful"}
+
+@app.post("/tech/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/tech.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
+
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
 
 # USA
 @app.get("/us/{row_id}")
@@ -250,7 +326,20 @@ def us_tts(row_id: int):
     os.remove(f'./us_{row_id}.mp3')
     return {"Save": "Successful"}
 
+@app.post("/us/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/us.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
 
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
 
 #OPINION
 @app.get("/opinion/{row_id}")
@@ -288,6 +377,20 @@ def opinion_tts(row_id: int):
     os.remove(f'./opinion_{row_id}.mp3')
     return {"Save": "Successful"}
 
+@app.post("/opinion/{row_id}/summarizer")
+def summarizers(row_id: int):
+    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/opinion.csv', index_col=0)
+    new_df = df.filter(items = [row_id], axis=0)
+    parsed_row = parse_dataframe(new_df)
+    body = parsed_row[0]['body']
+
+    if len(body)>=5000:
+        
+        summ1=summarizer1(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary":summ1}
+    else:
+        summ2=summarizer2(body,  max_length=130, min_length=30, do_sample=False)
+        return {"summary": summ2}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=80)
