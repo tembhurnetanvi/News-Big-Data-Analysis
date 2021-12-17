@@ -9,22 +9,24 @@ global:
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: "prometheus"
+      scheme: https
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
-      - targets: ['promoetheus:9090']
-  - job_name: 'blackbox'
-      metrics_path: /probe
-      scheme: http
-      params:
-          module: [http_2xx]
-      file_sd_configs:
-          - files:
-                - /monitoring/targets.yml
-      relabel_configs:
-          - source_labels: [__address__]
-            target_label: __param_target
-          - source_labels: [__param_target]
-            target_label: instance
-          - target_label: __address__
-            replacement: blackbox:9115
+      - targets: ['https://news-analysis-px7gwe6txq-uk.a.run.app']
+
+  # - job_name: 'blackbox'
+  #     metrics_path: /probe
+  #     scheme: http
+  #     params:
+  #         module: [http_2xx]
+  #     file_sd_configs:
+  #         - files:
+  #               - /monitoring/targets.yml
+  #     relabel_configs:
+  #         - source_labels: [__address__]
+  #           target_label: __param_target
+  #         - source_labels: [__param_target]
+  #           target_label: instance
+  #         - target_label: __address__
+  #           replacement: blackbox:9115
