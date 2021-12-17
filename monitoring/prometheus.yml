@@ -12,4 +12,5 @@ scrape_configs:
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
-      - targets: ["host.docker.internal:80"]
+      - targets: 
+        - https://news-analysis-px7gwe6txq-uk.a.run.app/docs
