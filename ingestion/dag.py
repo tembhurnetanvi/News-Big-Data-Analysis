@@ -274,8 +274,8 @@ def CNN_Health(url="https://search.api.cnn.io/content?q=health&sort=newest&categ
 
 with DAG(
     "gcs_cnn",
-    start_date=dt.datetime(2021, 10, 10),
-    schedule_interval='@once') as dag:
+    start_date=dt.datetime(2021, 12, 17),
+    schedule_interval='@daily') as dag:
 
 
     t2 = PythonOperator(
