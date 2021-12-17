@@ -11,11 +11,30 @@ from gtts import gTTS
 import os
 from transformers import pipeline
 
-summarizer1 = pipeline("summarization", model="t5-base", tokenizer="t5-base")
+summarizer1 = pipeline("summarization",model="t5-small", tokenizer="t5-small")
 
 summarizer2 = pipeline("summarization")
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="/mnt/c/DAGS/Project/Github/News-Big-Data-Analysis/fastapi/app/peak-text-334821-498618653290.json" 
+
+# from google.cloud import secretmanager
+
+# project_id = "90036660605"
+
+# client = secretmanager.SecretManagerServiceClient()
+# name = f"projects/{project_id}/secrets/app-key/versions/1"
+# response = client.access_secret_version(name=name)
+# my_secret_value = response.payload.data.decode("UTF-8")
+# with open("./app-key.json", 'w') as f:
+#     json.dump(my_secret_value, f)
+
+
+# # def secret_hello(request):
+# #     if "Again" in my_secret_value:
+# #         return "We meet again!\n"
+
+# #     return "Hello there.\n"
+    
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./app-key.json"
 
 
 def parse_dataframe(df):
