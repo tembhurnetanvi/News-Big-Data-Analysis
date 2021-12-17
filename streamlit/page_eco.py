@@ -41,7 +41,7 @@ def page_second():
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    audio_backend = f'http://localhost:8000/economy/{x}/text-to-speech'
+    audio_backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{int_val}/text-to-speech'
     audio = process_tts(audio_backend)
     if audio:
         st.audio(f'https://storage.googleapis.com/audio-output/economy_{int_val}.mp3', format='audio/ogg')
@@ -73,12 +73,14 @@ def page_third():
         st.write("# Sentiment")
         backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{x}/sentiment'
         sentiment = process_sentiment(backend)
-        st.write(sentiment)
+        st.write(sentiment ["Sentiment"])
+        st.write(sentiment["Subjectivity"])
 
     if nlp_option=="Summarization":
         st.write("# Summarization")
         backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{x}/summarizer'
         summarize = process_summarization(backend)
+        st.write(summarize)
 
 
 
@@ -97,8 +99,9 @@ def process_sentiment(server_url: str):
     resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
     result = resp.json()
     result_dict = result['sentiment']
-    valid_result = result_dict["Sentiment"]
-    return valid_result
+    valid_sentiment = result_dict["Sentiment"]
+    valid_subjectivity = result_dict["dataframe"]["value"]["1"]
+    return {"Sentiment":valid_sentiment, "Subjectivity":valid_subjectivity}
 
 @st.cache
 def process_tts(server_url: str):
@@ -120,16 +123,10 @@ def process_tts(server_url: str):
 def process_summarization(server_url: str):
     headers = CaseInsensitiveDict()
     headers["accept"] = "application/json"
-    # headers["Content-Type"] = "application/json"
-    # valid_text = {
-    #         'text': input_text
-    #     }
-    # data = '{"text":'+input_text+'}'
-    # data = '{"text":"'+text+'"}'
     data = ''
     resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
     result = resp.json()
-    summ = result["summary_text"]
+    summ = result["summary"][0]["summary_text"]
     return summ
         
 if __name__ == "__main__":
