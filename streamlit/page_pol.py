@@ -3,6 +3,8 @@ import pandas as pd
 import spacy_streamlit
 import spacy
 from spacy import displacy
+import requests
+from requests.structures import CaseInsensitiveDict
 
 nlp = spacy.load('en_core_web_sm')
 
@@ -39,15 +41,11 @@ def page_second():
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    audio_backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{int_val}/text-to-speech'
-    audio = process_tts(audio_backend)
-    if audio:
-        st.audio(f'https://storage.googleapis.com/audio-output/economy_{int_val}.mp3', format='audio/ogg')
+    st.audio(f'https://storage.googleapis.com/audio-output/politics_{int_val}.mp3', format='audio/ogg')
     author = st.write("By "+data["author"][int_val])
     datetime = st.write(data["datetime"][int_val])
     body = st.write(data["body"][int_val])
     article_url = st.write(data["url"][int_val])
-
 
 
 
@@ -67,6 +65,22 @@ def page_third():
         st.write("# Text Tokenization")
         doc=nlp(data["body"][x])
         spacy_streamlit.visualize_tokens(doc, attrs=["text", "pos_", "dep_", "ent_type_"])
+
+@st.cache
+def process_tts(server_url: str):
+    headers = CaseInsensitiveDict()
+    headers["accept"] = "application/json"
+    # headers["Content-Type"] = "application/json"
+    # valid_text = {
+    #         'text': input_text
+    #     }
+    # data = '{"text":'+input_text+'}'
+    # data = '{"text":"'+text+'"}'
+    data = ''
+    resp = requests.post(server_url, headers=headers, data=data, verify=False, timeout=8000)
+    result = resp.json()
+    valid_result = result['Save']
+    return True if valid_result=="Successful" else False
 
 
 if __name__ == "__main__":

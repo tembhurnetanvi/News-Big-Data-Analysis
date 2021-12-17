@@ -44,7 +44,7 @@ def page_second():
     audio_backend = f'https://news-analysis-px7gwe6txq-uk.a.run.app/economy/{int_val}/text-to-speech'
     audio = process_tts(audio_backend)
     if audio:
-        st.audio(f'https://storage.googleapis.com/audio-output/economy_{int_val}.mp3', format='audio/ogg')
+        st.audio(f'https://storage.googleapis.com/audio-output/economy_5.mp3', format='audio/ogg')
     author = st.write("By "+data["author"][int_val])
     datetime = st.write(data["datetime"][int_val])
     body = st.write(data["body"][int_val])
