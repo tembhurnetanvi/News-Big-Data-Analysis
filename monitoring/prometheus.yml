@@ -9,12 +9,17 @@ global:
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
   - job_name: "prometheus"
-      scheme: https
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
+    scrape_interval: 5s
     static_configs:
-      - targets: ['https://news-analysis-px7gwe6txq-uk.a.run.app']
+      - targets: ['news-analysis-px7gwe6txq-uk.a.run.app']
+    metrics_path: /metrics
+    scheme: https
 
+remote_write:
+  - url: https://prometheus-prod-10-prod-us-central-0.grafana.net/api/prom/push
+    basic_auth:
+      username: 281442
+      password: eyJrIjoiNjQ5MDAyMGUzYjczZWU1YWQ4YzhkMzkyYzNiNGUyMGZjMTgxZDQyYiIsIm4iOiJ0ZXN0LWdyYWZhbmEiLCJpZCI6NTc4NTEwfQ==
   # - job_name: 'blackbox'
   #     metrics_path: /probe
   #     scheme: http
