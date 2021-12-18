@@ -39,11 +39,14 @@ def main():
     st.markdown("____")
     
 
-    url = 'https://news-analysis-monitoring-px7gwe6txq-uk.a.run.app'
+    url_prom = 'https://news-analysis-monitoring-px7gwe6txq-uk.a.run.app'
+    url_graf = "https://snapshot.raintank.io/dashboard/snapshot/PEqNUsyI1czoHp9Et6x8U4KSWOziE79Q?orgId=2"
 
     if st.button('Prometheus'):
-        webbrowser.open_new_tab(url)
-    
+        webbrowser.open_new_tab(url_prom)
+    st.markdown("____")
+    if st.button("Grafana"):
+        webbrowser.open_new_tab(url_graf)
         
 
 st.header("Developer site for News Analysis")
