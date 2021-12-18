@@ -11,7 +11,7 @@ scrape_configs:
   - job_name: "prometheus"
     scrape_interval: 5s
     static_configs:
-      - targets: ['news-analysis-px7gwe6txq-uk.a.run.app']
+      - targets: ['news-analysis-px7gwe6txq-ue.a.run.app']
     metrics_path: /metrics
     scheme: https
 
