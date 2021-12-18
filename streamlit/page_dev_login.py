@@ -1,4 +1,5 @@
 import streamlit as st
+import webbrowser
 
 def is_authenticated(username):
     return username == "admin"
@@ -35,6 +36,15 @@ def loginP(blocks):
 
 def main():
     st.header('ML Monitoring')
+    st.markdown("____")
+    
+
+    url = 'https://news-analysis-monitoring-px7gwe6txq-uk.a.run.app'
+
+    if st.button('Prometheus'):
+        webbrowser.open_new_tab(url)
+    
+        
 
 st.header("Developer site for News Analysis")
 login_blocks = generate_login_block()
