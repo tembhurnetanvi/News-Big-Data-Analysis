@@ -46,7 +46,7 @@ def page_second():
     audio = process_tts(audio_backend)
     if audio:
         st.audio(f'https://storage.googleapis.com/audio-output/tech/{int_val}.mp3', format='audio/ogg')
-    author = st.write("By "+data["author"][int_val])
+    author = st.write("Author "+data["author"][int_val])
     datetime = st.write(data["datetime"][int_val])
     body = st.write(data["body"][int_val])
     article_url = st.write(data["url"][int_val])
