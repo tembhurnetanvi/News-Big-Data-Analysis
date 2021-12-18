@@ -45,8 +45,8 @@ st.markdown("""
 
 st.subheader("Welcome!")
 st.markdown("____")
-st.header("News Analysis Application")
+st.header("News Analysis Application 👀")
 st.markdown("____")
 st.subheader("This application helps to empower mind with day-to-day news.")
-st.write("This project for DAMG-7245 NEU guided by Prof. Krishna Murthy, made by Kartik Kumar and Tanvi Tembhurne")
+st.write("This project for DAMG-7245 NEU guided by Prof. Srikanth KrishnaMurthy, made by Kartik Kumar and Tanvi Tembhurne")
 st.markdown("____")
