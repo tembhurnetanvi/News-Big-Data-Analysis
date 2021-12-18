@@ -84,8 +84,6 @@ def page_third():
 
 
 
-
-@st.cache
 def process_sentiment(server_url: str):
     headers = CaseInsensitiveDict()
     headers["accept"] = "application/json"
@@ -103,7 +101,6 @@ def process_sentiment(server_url: str):
     valid_subjectivity = result_dict["dataframe"]["value"]["1"]
     return {"Sentiment":valid_sentiment, "Subjectivity":valid_subjectivity}
 
-@st.cache
 def process_tts(server_url: str):
     headers = CaseInsensitiveDict()
     headers["accept"] = "application/json"
@@ -119,7 +116,6 @@ def process_tts(server_url: str):
     valid_result = result['Save']
     return True if valid_result=="Successful" else False
 
-@st.cache
 def process_summarization(server_url: str):
     headers = CaseInsensitiveDict()
     headers["accept"] = "application/json"
