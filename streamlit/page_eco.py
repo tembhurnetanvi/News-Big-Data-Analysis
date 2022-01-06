@@ -41,7 +41,7 @@ def page_second():
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    audio_backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/{int_val}/text-to-speech'
+    audio_backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/economy/{int_val}/text-to-speech'
     audio = process_tts(audio_backend)
     if audio:
         st.audio(f'https://storage.googleapis.com/storm_event/CNN_audio/economy/{int_val}.mp3', format='audio/ogg')
