@@ -35,16 +35,16 @@ def main():
 
 def page_second():
     st.header("ECONOMY")
-    DATA_URL="https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv"
+    DATA_URL="https://storage.googleapis.com/storm_event/CNN/CNN_Economy.csv"
     data = st.cache(pd.read_csv)(DATA_URL, nrows=1000)
     data_pol = data[['title',"datetime"]]
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    audio_backend = f'https://news-analysis-px7gwe6txq-ue.a.run.app/economy/{int_val}/text-to-speech'
+    audio_backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/{int_val}/text-to-speech'
     audio = process_tts(audio_backend)
     if audio:
-        st.audio(f'https://storage.googleapis.com/audio-output/economy/{int_val}.mp3', format='audio/ogg')
+        st.audio(f'https://storage.googleapis.com/storm_event/CNN_audio/economy/{int_val}.mp3', format='audio/ogg')
     author = st.write("Author "+data["author"][int_val])
     datetime = st.write(data["datetime"][int_val])
     body = st.write(data["body"][int_val])
@@ -55,7 +55,7 @@ def page_second():
 def page_third():
     x=st.session_state.int
     st.session_state.int = x
-    DATA_URL="https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv"
+    DATA_URL="https://storage.googleapis.com/storm_event/CNN/CNN_Economy.csv"
     data = st.cache(pd.read_csv)(DATA_URL)
     nlp_option = st.radio("Services", st.session_state["options"], key="radio")
     
@@ -71,14 +71,14 @@ def page_third():
 
     if nlp_option=="Sentiment":
         st.write("# Sentiment")
-        backend = f'https://news-analysis-px7gwe6txq-ue.a.run.app/economy/{x}/sentiment'
+        backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/economy/{x}/sentiment'
         sentiment = process_sentiment(backend)
         st.write(sentiment ["Sentiment"])
         st.write(sentiment["Subjectivity"])
 
     if nlp_option=="Summarization":
         st.write("# Summarization")
-        backend = f'https://news-analysis-px7gwe6txq-ue.a.run.app/economy/{x}/summarizer'
+        backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/economy/{x}/summarizer'
         summarize = process_summarization(backend)
         st.write(summarize)
 
