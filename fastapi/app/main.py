@@ -89,7 +89,7 @@ def read_root():
 # POLITICS
 @app.get("/politics/{row_id}")
 def read_politics(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/politics.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Politics.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -99,7 +99,7 @@ def read_politics(row_id: int):
 def politics_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/politics.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Politics.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -113,7 +113,7 @@ def politics_sentiment(row_id: int):
 def politics_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/politics.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Politics.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -121,10 +121,10 @@ def politics_tts(row_id: int):
     tts.save(f'./politics_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'politics/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/politics/{row_id}.mp3')
     blob.upload_from_filename(f'./politics_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./politics_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -135,7 +135,7 @@ def politics_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/politics.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Politics.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -154,7 +154,7 @@ def summarizers(row_id: int):
 # WORLD
 @app.get("/world/{row_id}")
 def read_world(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/world.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_World.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -164,7 +164,7 @@ def read_world(row_id: int):
 def world_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/world.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_World.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -178,7 +178,7 @@ def world_sentiment(row_id: int):
 def world_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/world.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_World.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -186,10 +186,10 @@ def world_tts(row_id: int):
     tts.save(f'./world_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'world/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/world/{row_id}.mp3')
     blob.upload_from_filename(f'./world_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./world_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -200,7 +200,7 @@ def world_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/world.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_World.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -222,7 +222,7 @@ def summarizers(row_id: int):
 # ECONOMY
 @app.get("/economy/{row_id}")
 def read_economy(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Economy.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -232,7 +232,7 @@ def read_economy(row_id: int):
 def economy_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Economy.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -247,7 +247,7 @@ def economy_sentiment(row_id: int):
 def economy_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Economy.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -255,10 +255,10 @@ def economy_tts(row_id: int):
     tts.save(f'./economy_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'economy/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/economy/{row_id}.mp3')
     blob.upload_from_filename(f'./economy_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./economy_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -269,7 +269,7 @@ def economy_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/economy.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Economy.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -291,7 +291,7 @@ def summarizers(row_id: int):
 # HEALTH
 @app.get("/health/{row_id}")
 def read_health(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/health.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Health.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -301,7 +301,7 @@ def read_health(row_id: int):
 def health_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/health.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Health.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -316,7 +316,7 @@ def health_sentiment(row_id: int):
 def health_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/health.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Health.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -324,10 +324,10 @@ def health_tts(row_id: int):
     tts.save(f'./health_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'health/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/health/{row_id}.mp3')
     blob.upload_from_filename(f'./health_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./health_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -338,7 +338,7 @@ def health_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/health.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Health.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -359,7 +359,7 @@ def summarizers(row_id: int):
 # TECH
 @app.get("/tech/{row_id}")
 def read_tech(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/tech.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Tech.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -369,7 +369,7 @@ def read_tech(row_id: int):
 def tech_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/tech.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Tech.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -384,7 +384,7 @@ def tech_sentiment(row_id: int):
 def tech_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/tech.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Tech.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -392,10 +392,10 @@ def tech_tts(row_id: int):
     tts.save(f'./tech_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'tech/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/tech/{row_id}.mp3')
     blob.upload_from_filename(f'./tech_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./tech_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -406,7 +406,7 @@ def tech_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/tech.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Tech.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -427,7 +427,7 @@ def summarizers(row_id: int):
 # USA
 @app.get("/us/{row_id}")
 def read_us(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/us.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_US.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -437,7 +437,7 @@ def read_us(row_id: int):
 def us_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/us.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_US.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -452,7 +452,7 @@ def us_sentiment(row_id: int):
 def us_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/us.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_US.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -460,10 +460,10 @@ def us_tts(row_id: int):
     tts.save(f'./us_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'us/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/us/{row_id}.mp3')
     blob.upload_from_filename(f'./us_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./us_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -474,7 +474,7 @@ def us_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/us.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_US.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -495,7 +495,7 @@ def summarizers(row_id: int):
 #OPINION
 @app.get("/opinion/{row_id}")
 def read_opinion(row_id: int):
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/opinion.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Opinion.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     return {"df": parsed_row}
@@ -505,7 +505,7 @@ def read_opinion(row_id: int):
 def opinion_sentiment(row_id: int):
     start_time = time.time()
     graphs['count_sentiment'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/opinion.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Opinion.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -520,7 +520,7 @@ def opinion_sentiment(row_id: int):
 def opinion_tts(row_id: int):
     start_time = time.time()
     graphs['count_tts'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/opinion.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Opinion.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
@@ -528,10 +528,10 @@ def opinion_tts(row_id: int):
     tts.save(f'./opinion_{row_id}.mp3')
     storage_client = storage.Client()
     buckets = list(storage_client.list_buckets())
-    bucket = storage_client.get_bucket("audio-output")
-    blob = bucket.blob(f'opinion/{row_id}.mp3')
+    bucket = storage_client.get_bucket("storm_event")
+    blob = bucket.blob(f'CNN_audio/opinion/{row_id}.mp3')
     blob.upload_from_filename(f'./opinion_{row_id}.mp3')
-    blob.make_public()
+    # blob.make_public()
     os.remove(f'./opinion_{row_id}.mp3')
     end_time = time.time()
     graphs['tts_time'].observe(end_time - start_time)
@@ -542,7 +542,7 @@ def opinion_tts(row_id: int):
 def summarizers(row_id: int):
     start_time = time.time()
     graphs['count_summarizer'].inc()
-    df = pd.read_csv('https://storage.googleapis.com/news_articles_scraped/CNN/opinion.csv', index_col=0)
+    df = pd.read_csv('https://storage.googleapis.com/storm_event/CNN/CNN_Opinion.csv', index_col=0)
     new_df = df.filter(items = [row_id], axis=0)
     parsed_row = parse_dataframe(new_df)
     body = parsed_row[0]['body']
