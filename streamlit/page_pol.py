@@ -41,10 +41,10 @@ def page_second():
     st.write('### Full Dataset', data_pol)
     int_val = st.number_input('Select a row for the article', min_value=0, max_value=49, step=1, key="int")
     title = st.header(data["title"][int_val])
-    audio_backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/politics/{int_val}/text-to-speech'
-    audio = process_tts(audio_backend)
-    if audio:
-        st.audio(f'https://storage.googleapis.com/storm_event/CNN_audio/politics/{int_val}.mp3', format='audio/ogg')
+    # audio_backend = f'https://news-analysis-es3uwbxn2a-uc.a.run.app/politics/{int_val}/text-to-speech'
+    # audio = process_tts(audio_backend)
+    # if audio:
+    #     st.audio(f'https://storage.googleapis.com/storm_event/CNN_audio/politics/{int_val}.mp3', format='audio/ogg')
     author = st.write("Author "+data["author"][int_val])
     datetime = st.write(data["datetime"][int_val])
     body = st.write(data["body"][int_val])
